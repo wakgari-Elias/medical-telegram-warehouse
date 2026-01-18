@@ -96,3 +96,44 @@ Images are downloaded only when present
 Channels with fewer messages return all available messages
 
 .session files and secrets are excluded from version control
+
+# Task 2 - Data Modeling and Transformation (Transform)
+
+## Objective
+Transform raw Telegram message data into a clean, structured data warehouse using dbt and PostgreSQL.
+
+## Steps
+
+### 1. Load Raw Data to PostgreSQL
+- `load_raw_to_postgres.py` reads JSON files from `data/raw/telegram_messages/` and inserts them into the `raw.telegram_messages` table.
+
+### 2. Initialize DBT Project
+- DBT project: `medical_warehouse`
+- Profiles configured in `profiles.yml` to connect to PostgreSQL database `medical_warehouse`.
+- Project structure:
+  - `models/staging/` → staging models (cleaning and standardizing raw data)
+  - `models/marts/` → dimensional models (star schema)
+  - `tests/` → custom DBT tests
+
+### 3. Staging Model
+- File: `models/staging/stg_telegram_messages.sql`
+- Cleans and standardizes raw data:
+  - Casts `message_date` to timestamp
+  - Converts views/forwards to integers
+  - Adds calculated fields: `message_length`, `has_image`
+
+### 4. Star Schema (Dimensional Models)
+- Dimension tables:
+  - `dim_channels.sql` → channel information (name, type, first/last post)
+  - `dim_dates.sql` → date dimension (day, week, month, quarter, year)
+- Fact table:
+  - `fct_messages.sql` → one row per message, links to dimension tables
+
+### 5. Tests
+- `schema.yml` → primary key, not null, and relationships tests
+- Custom test: `assert_no_future_messages.sql` → ensure no messages with future dates
+
+### 6. DBT Commands
+- Run models:  
+  ```bash
+  dbt run

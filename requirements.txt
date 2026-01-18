@@ -4,3 +4,7 @@ pandas
 sqlalchemy
 psycopg2-binary
 loguru
+psycopg2-binary
+ sqlalchemy 
+ pandas 
+ dbt-postgres

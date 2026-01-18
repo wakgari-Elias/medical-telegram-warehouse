@@ -5,3 +5,17 @@ __pycache__/
 data/raw/
 logs/
 *.session
+# DBT
+target/
+dbt_packages/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Telegram session
+*.session
+
+# Logs
+logs/
