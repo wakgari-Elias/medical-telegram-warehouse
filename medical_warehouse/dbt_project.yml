@@ -1,0 +1,15 @@
+name: 'medical_warehouse'
+version: '1.0.0'
+
+profile: 'my_postgres_profile'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+analysis-paths: ["analysis"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
