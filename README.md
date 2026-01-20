@@ -314,3 +314,39 @@ Despite these limitations, the approach provides valuable directional insights w
 Task 3 successfully extends the data warehouse beyond text-based analytics by incorporating computer vision-driven enrichment. While constrained by the limitations of pre-trained models, the solution adds measurable analytical value and prepares the foundation for more advanced image intelligence in future iterations.
 
 This task bridges data engineering and applied machine learning, reinforcing the platform’s ability to support richer, multi-modal business insights.
+
+
+# Medical Telegram Warehouse
+
+End-to-end data pipeline for scraping, transforming, enriching, and analyzing public Ethiopian medical/pharmaceutical Telegram channels.
+
+## Task 4: Analytical API (FastAPI)
+
+This task exposes the cleaned and transformed data from dbt marts through a modern REST API built with **FastAPI**.
+
+### Features
+- **Async SQLAlchemy** connection to PostgreSQL data warehouse
+- **Pydantic schemas** for request/response validation
+- **Modular routers** for clean organization:
+  - Channel activity trends
+  - Reports (top products, visual content stats)
+  - Message keyword search
+- Automatic interactive documentation via Swagger UI (`/docs`) and ReDoc (`/redoc`)
+- Robust error handling with meaningful HTTP status codes
+- Queries optimized against dbt mart models (star schema)
+
+### Endpoints
+| Method | Path                                      | Description                                      | Example |
+|--------|-------------------------------------------|--------------------------------------------------|---------|
+| GET    | `/api/reports/top-products?limit=10`      | Top frequently mentioned terms/products           | Returns list of {product, count} |
+| GET    | `/api/channels/{channel_name}/activity`   | Daily post count & average views for a channel   | Last 30 days |
+| GET    | `/api/search/messages?query=...&limit=20` | Search messages containing keyword               | Case-insensitive |
+| GET    | `/api/reports/visual-content`             | Image usage statistics per channel                | % of posts with images |
+
+### How to Run the API
+```bash
+# Activate venv and install deps
+pip install -r requirements.txt
+
+# Start the server
+uvicorn api.main:app --reload --port 8000
