@@ -350,3 +350,46 @@ pip install -r requirements.txt
 
 # Start the server
 uvicorn api.main:app --reload --port 8000
+
+
+# Task 5 - Medical Telegram Data Pipeline Orchestration
+
+## Objective
+Automate the end-to-end Medical Telegram data pipeline using **Dagster** for orchestration. This makes the workflow robust, observable, schedulable, and easy to monitor.
+
+---
+
+## Pipeline Overview
+
+The pipeline consists of the following sequential steps:
+
+1. **Scrape Telegram Data**  
+   Runs the scraper (`src/scraper.py`) to collect raw Telegram messages.
+
+2. **Load Raw Data to Postgres**  
+   Loads JSON/raw data into the Postgres database (`scripts/load_raw_to_postgres.py`).
+
+3. **Run DBT Transformations**  
+   Executes DBT models (`dbt run`) to build analytics tables.
+
+4. **Run YOLO Enrichment**  
+   Runs object detection (`src/yolo_detect.py`) to enrich images with tags.
+
+---
+
+## Technology Stack
+- **Dagster**: Orchestration and pipeline management  
+- **Python**: Pipeline scripts and operations  
+- **Postgres**: Raw and transformed data storage  
+- **DBT**: Data transformations  
+- **YOLOv8**: Image detection and enrichment  
+
+---
+
+## Setup & Run
+
+1. **Install dependencies**
+
+```bash
+pip install -r requirements.txt
+pip install dagster dagster-webserver
