@@ -28,3 +28,7 @@ logs/
 
 # YOLO model weights
 *.pt
+*.db
+*.db
+*.sqlite
+.tmp_dagster_home_

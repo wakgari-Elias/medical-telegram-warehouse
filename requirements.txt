@@ -8,3 +8,5 @@ psycopg2-binary
  sqlalchemy 
  pandas 
  dbt-postgres
+ dagster 
+ dagster-webserver
