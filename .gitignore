@@ -2,7 +2,13 @@ venv/
 .env
 __pycache__/
 *.pyc
-data/raw/
+# Ignore all raw data
+data/raw/*
+
+# Allow YOLO detection output
+!data/raw/yolo_detections.csv
+
+
 logs/
 *.session
 # DBT
@@ -19,3 +25,6 @@ __pycache__/
 
 # Logs
 logs/
+
+# YOLO model weights
+*.pt
